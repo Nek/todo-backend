@@ -1,0 +1,13 @@
+{
+  "name": "todo-backend",
+  "version": "1.0.0",
+  "description": "Todo backend.",
+  "author": "Nikita Dudnik <nikdudnik@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "start": "supervisor index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}

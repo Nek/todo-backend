@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const uuid = require('node-uuid');
 
 //http://stackoverflow.com/questions/29558528/change-the-array-collection-order-using-a-rest-api
 //With PUT, clients can upload a whole new representation with 
@@ -20,26 +21,44 @@ app.get('/api', function (req, res) {
 
 const apiRoot = '/api/v1';
 
-app.get(apiRoot + '/todos', function (req, res) {
-  res.send([{
+const todosById = {
+	id1 : {
 		done: false,
 		description: "Wash dishes",
 		id: "id1"
 	},
-	{
+	id2 : {
 		done: true,
 		description: "Clean car",
 		id: "id2"
 	},
-	{
+	id3 : {
 		done: false,
 		description: "Pay rent",
 		id: "id3"
-	}]);
+	}};
+
+const todos = ['id1', 'id2', 'id3'];
+
+app.get(apiRoot + '/todos', function (req, res) {
+	res.send(todos.map(function (id) {
+		return todosById[id];
+	}));
+});
+
+app.post(apiRoot + '/todos', function (req, res) {
+	console.log(req.body);
 });
 
 app.get(apiRoot + '/todos/:id', function(req, res) {
-    res.send({id:req.params.id, done: false, description: "description"});
+	const todo = todosById[req.params.id];
+	if (todo) {
+		res.send(todo);
+	}
+	else {
+		res.status(404);
+		res.send('No todo item with id: ' + req.params.id);
+	}
 });
 
 app.listen(PORT);

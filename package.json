@@ -8,7 +8,8 @@
     "start": "supervisor index.js"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "node-uuid": "^1.4.7"
   },
   "eslintConfig": {
     "parserOptions": {

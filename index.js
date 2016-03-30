@@ -2,6 +2,7 @@
 
 const express = require('express');
 const uuid = require('node-uuid');
+const bodyParser = require('body-parser');
 
 //http://stackoverflow.com/questions/29558528/change-the-array-collection-order-using-a-rest-api
 //With PUT, clients can upload a whole new representation with 
@@ -13,7 +14,7 @@ const PORT = 8080;
 // App
 const app = express();
 app.use('/', express.static(__dirname + '/todo-frontend/public'));
-
+app.use(bodyParser());
 
 app.get('/api', function (req, res) {
   res.send('Api root.\n');
@@ -48,6 +49,15 @@ app.get(apiRoot + '/todos', function (req, res) {
 
 app.post(apiRoot + '/todos', function (req, res) {
 	console.log(req.body);
+	const id = uuid.v4();
+	const todo = {
+		done: req.body.done,
+		description: req.body.description,
+		id: id
+	};
+	todosById[id] = todo;
+	todos.push(id);
+	res.send(todo);
 });
 
 app.get(apiRoot + '/todos/:id', function(req, res) {

@@ -48,7 +48,6 @@ app.get(apiRoot + '/todos', function (req, res) {
 });
 
 app.post(apiRoot + '/todos', function (req, res) {
-	console.log(req.body);
 	const id = uuid.v4();
 	const todo = {
 		done: req.body.done,
@@ -57,28 +56,28 @@ app.post(apiRoot + '/todos', function (req, res) {
 	};
 	todosById[id] = todo;
 	todos.push(id);
+	res.status(201);
 	res.send(todo);
 });
 
-app.get(apiRoot + '/todos/:id', function(req, res) {
-	const todo = todosById[req.params.id];
-	if (todo) {
-		res.send(todo);
-	}
-	else {
-		res.status(404);
-		res.send('No todo item with id: ' + req.params.id);
-	}
+app.get(apiRoot + '/todos/ordering', function(req, res) {
+	res.send(todos);
+});
+
+app.get(apiRoot + '/todos/ordering', function(req, res) {
+	res.send(todos);
 });
 
 app.post(apiRoot + '/todos/:id', function(req, res) {
-	const todo = req.body;
 	const id = req.params.id;
-	todo.id = id;
-	if (todosById[id]) {
-		todosById[id] = todo;
-		res.send(todo);
-	} else {
+	const oldTodo = todosById[id];
+	if (oldTodo) {
+		const newTodo = req.body;
+		newTodo.id = id;
+		todosById[id] = newTodo;
+		res.send(newTodo);
+	}
+	else {
 		res.status(404);
 		res.send('No todo item with id: ' + req.params.id);
 	}

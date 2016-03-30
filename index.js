@@ -4,10 +4,6 @@ const express = require('express');
 const uuid = require('node-uuid');
 const bodyParser = require('body-parser');
 
-//http://stackoverflow.com/questions/29558528/change-the-array-collection-order-using-a-rest-api
-//With PUT, clients can upload a whole new representation with 
-//the order they want. They will request GET /api/v1/items, change 
-//the order as they need, and submit it back with PUT /api/v1/items.
 // Constants
 const PORT = 8080;
 

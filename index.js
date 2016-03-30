@@ -22,22 +22,7 @@ app.get('/api', function (req, res) {
 
 const apiRoot = '/api/v1';
 
-let todosById = {
-	id1 : {
-		done: false,
-		description: "Wash dishes",
-		id: "id1"
-	},
-	id2 : {
-		done: true,
-		description: "Clean car",
-		id: "id2"
-	},
-	id3 : {
-		done: false,
-		description: "Pay rent",
-		id: "id3"
-	}};
+let todosById = {};
 
 let todos = ['id1', 'id2', 'id3'];
 

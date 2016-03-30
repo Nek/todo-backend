@@ -20,7 +20,7 @@ const apiRoot = '/api/v1';
 
 let todosById = {};
 
-let todos = ['id1', 'id2', 'id3'];
+let todos = [];
 
 app.get(apiRoot + '/todos', function (req, res) {
 	res.send(todos.map(function (id) {

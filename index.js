@@ -71,5 +71,18 @@ app.get(apiRoot + '/todos/:id', function(req, res) {
 	}
 });
 
+app.post(apiRoot + '/todos/:id', function(req, res) {
+	const todo = req.body;
+	const id = req.params.id;
+	todo.id = id;
+	if (todosById[id]) {
+		todosById[id] = todo;
+		res.send(todo);
+	} else {
+		res.status(404);
+		res.send('No todo item with id: ' + req.params.id);
+	}
+});
+
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);

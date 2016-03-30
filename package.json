@@ -9,5 +9,14 @@
   },
   "dependencies": {
     "express": "^4.13.3"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
   }
 }

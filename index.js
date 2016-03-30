@@ -78,7 +78,7 @@ app.get(apiRoot + '/todos/ordering', function(req, res) {
 app.put(apiRoot + '/todos/ordering', function(req, res) {
 	todos = req.body;
 	res.status(200);
-	res.send(todos);
+	res.send('Todos ordering change is successful');
 });
 
 app.post(apiRoot + '/todos/:id', function(req, res) {

@@ -22,7 +22,7 @@ app.get('/api', function (req, res) {
 
 const apiRoot = '/api/v1';
 
-const todosById = {
+let todosById = {
 	id1 : {
 		done: false,
 		description: "Wash dishes",
@@ -39,7 +39,7 @@ const todosById = {
 		id: "id3"
 	}};
 
-const todos = ['id1', 'id2', 'id3'];
+let todos = ['id1', 'id2', 'id3'];
 
 app.get(apiRoot + '/todos', function (req, res) {
 	res.send(todos.map(function (id) {
@@ -60,11 +60,24 @@ app.post(apiRoot + '/todos', function (req, res) {
 	res.send(todo);
 });
 
+app.put(apiRoot + '/todos', function (req, res) {
+	const todosJson = req.body;
+	todosById = todosJson.reduce(function (map, item) {
+				map[item.id] = item;
+				return map;
+			}, {});
+	todos = todosJson.map(function (item) {return item.id;});
+	res.status(200);
+	res.send('Bulk todo update was successful');
+});
+
 app.get(apiRoot + '/todos/ordering', function(req, res) {
 	res.send(todos);
 });
 
-app.get(apiRoot + '/todos/ordering', function(req, res) {
+app.put(apiRoot + '/todos/ordering', function(req, res) {
+	todos = req.body;
+	res.status(200);
 	res.send(todos);
 });
 
@@ -75,6 +88,7 @@ app.post(apiRoot + '/todos/:id', function(req, res) {
 		const newTodo = req.body;
 		newTodo.id = id;
 		todosById[id] = newTodo;
+		res.status(200);
 		res.send(newTodo);
 	}
 	else {
